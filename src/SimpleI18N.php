@@ -37,6 +37,7 @@ namespace SimpleI18N;
 
 class SimpleI18N {
     const DEFAULT_DOMAIN = 'messages';
+    const LC_MESSAGES = 6;
 
     protected $domains = array();
 
@@ -47,17 +48,18 @@ class SimpleI18N {
     private $cache;
 
     function __construct() {
-        $this->locale = setlocale(LC_MESSAGES, "0");
+        $this->locale = setlocale(self::LC_MESSAGES, "0");
     }
 
     function setLocale($locale) {
-/*        if ($locale === 0) {
+        if ($locale === 0) {
             if ($this->locale == '') return $this->setlocale('');
 
             return $this->locale;
         } else {
-            return
-        }*/
+            $this->locale = $locale;
+            return $this->locale;
+        }
     }
 
     function addDomain($domain, $directory) {
@@ -101,14 +103,17 @@ class SimpleI18N {
     }
 
     private function loadMOFile($domain) {
-        $filename = '';
+        if (!isset($this->domains[$domain])) return false;
+
+        $filename = $this->domains[$domain] . '/' . $this->locale . '.mo';
 
         if (isset($this->cache[$filename])) return $this->cache[$filename];
 
         if (!file_exists($filename)) return false;
         try {
             $this->cache[$filename] = new MOReader($filename);
-        } catch ($e) {
+            return $this->cache[$filename];
+        } catch (Exception $e) {
             return false;
         }
 
