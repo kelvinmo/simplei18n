@@ -1,0 +1,2 @@
+- No categories
+- UTF-8 only
