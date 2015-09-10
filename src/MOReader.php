@@ -313,7 +313,7 @@ class MOReader {
      * @return string the key
      */
     private function getTableKey($original, $context) {
-        return ($context === null) ? $original : $context . self::CONTEXT_SEPARATOR . $original;
+        return (is_null($context)) ? $original : $context . self::CONTEXT_SEPARATOR . $original;
     }
 
     /**
