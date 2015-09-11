@@ -38,7 +38,7 @@ namespace SimpleI18N;
 /**
  * The main SimpleI18N class.
  *
- * Translations in the SimpleI18N is organised into <em>domains</em>.
+ * Translations in SimpleI18N is organised into <em>domains</em>.
  * Each domain is physically represented by a separate directory in the file
  * system.  Domains are added to SimpleI18N using the addDomain() method.
  *
