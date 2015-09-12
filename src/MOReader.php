@@ -141,7 +141,7 @@ class MOReader {
                     return $this->table[$key][self::INDEX_TRANSLATION_PLURALS][$index];
             }
         }
- 
+
         return ($count == 1) ? $original_singular : $original_plural;
     }
 
@@ -150,8 +150,8 @@ class MOReader {
      */
     private function readFile() {
         $file = @fopen($this->filename, 'r');
-        if (!$file) throw new Exception("Cannot open file");
-        
+        if (!$file) throw new \RuntimeException("Cannot open file");
+
         // 1. Read MO header
         $buf = fread($file, 4);
         if ($buf == self::MAGIC_BIG_ENDIAN) {
@@ -159,13 +159,13 @@ class MOReader {
         } elseif ($buf == self::MAGIC_LITTLE_ENDIAN) {
             $this->endianess = 'V';
         } else {
-            throw new Exception("Not a gettext MO file");
+            throw new \UnexpectedValueException("Not a gettext MO file");
         }
 
         extract($this->readInts($file, 'revision', 'count', 'originals_pos', 'translations_pos', 'hash_size', 'hash_pos'));
 
         // support revision 0 of MO format specs only
-        if ($revision != 0) throw new Exception("Unsupported MO file version");
+        if ($revision != 0) throw new \UnexpectedValueException("Unsupported MO file version");
 
         // 2. Read offset tables
         $offset_table = array();
@@ -288,7 +288,7 @@ class MOReader {
 
         $translation_plurals = explode(self::PLURAL_SEPARATOR, $translation);
         $translation_singular = array_shift($translation_plurals);
-        
+
         $this->table[$this->getTableKey($original_singular, $context)] = array($original_plurals, $translation_singular, $translation_plurals);
     }
 
@@ -344,7 +344,7 @@ class MOReader {
     private function readInts() {
         $endianess = $this->endianess;
         $args = func_get_args();
-        $file = array_shift($args);        
+        $file = array_shift($args);
         $elements = array_map(function($e) use ($endianess) { return $endianess . $e; }, $args);
         $format = implode('/', $elements);
         return unpack($format, fread($file, 4 * count($args)));
