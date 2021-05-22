@@ -1,3 +1,7 @@
+⚠️ **IMPORTANT NOTICE - This library is no longer being maintained.  Please use the [PHP Gettext library](https://github.com/php-gettext/Gettext) as an alternative.** ⚠️
+
+---
+
 # SimpleI18N
 
 SimpleI18N is a simple internationalization library written in PHP.
