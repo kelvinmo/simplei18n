@@ -17,5 +17,8 @@
     ],
     "autoload": {
         "psr-4": { "SimpleI18N\\": "src/" }
+    },
+    "scripts": {
+        "test": [ "@composer install", "phpunit" ]
     }
 }
