@@ -2,11 +2,11 @@
     "name": "kelvinmo/simplei18n",
     "description": "An simple internationalization library for PHP, based on Gettext files.",
     "require": {
-        "php": ">=5.4.0",
+        "php": "^5.4 || ^7.0",
         "ext-mbstring": "*"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.*"
+        "phpunit/phpunit": "^4.0"
     },
     "license": "BSD-3-Clause",
     "authors": [
